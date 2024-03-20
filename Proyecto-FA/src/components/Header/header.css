@@ -1,0 +1,32 @@
+.header {
+    background-color: #000000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+}
+.header-logo {
+    color: #ffffff;
+    text-decoration: none;
+    letter-spacing: 2px;
+}
+.header-options {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    gap: 20px;
+}
+.header-link {
+    color: #ffffff;
+    text-decoration: none;
+    letter-spacing: 2px;
+}
+.header-link:hover {
+    border-bottom: solid 2px #ff0000;
+}
+.search-input{
+    width: 100%;
+    max-width: 400px;
+    padding: 8px 12px;
+    box-sizing: border-box;
+}
