@@ -10,8 +10,4 @@ const getMeUserServices = (jwtToken) => axios.get(`${BASE_URL}/me`, {
   }
 })
 
-export {
-  registerUserServices,
-  loginUserServices,
-  getMeUserServices
-}
+export {registerUserServices,loginUserServices,getMeUserServices }
