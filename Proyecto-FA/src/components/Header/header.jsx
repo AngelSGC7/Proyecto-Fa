@@ -1,15 +1,16 @@
 import { NavLink } from 'react-router-dom'
 import './header.css'
 import { useAuthContext } from '../../hooks/useAuthContext';
+import SearchComponent from '../SearchComponent/searchComponents';
+
 
 const header = () => {
-    const { isAuth, logout } = useAuthContext();
+    const { isAuth, logout , userPayload } = useAuthContext();
   
-    return (
-      <header>
+    return (    <header>
         <nav className='header'>
           <NavLink to="#" className='header-logo'>Habanna</NavLink>
-          <input type="text" placeholder='Buscar' className='search-input'/>
+          <SearchComponent type="text" placeholder='Buscar' className='search-input'/>
           <ul className='header-options'>
             <li>
               <NavLink to="/" className='header-link'>Inicio</NavLink>
@@ -21,15 +22,16 @@ const header = () => {
               <NavLink to="/Cart" className='header-link'>Carrito</NavLink>
             </li>
             {isAuth ? (
-              <li className='header-link'>
-                <NavLink
-                  className='header-link'
-                  to='/'
-                  onClick={logout}
-                >
-                  Logout
-                </NavLink>
-              </li>
+              <>
+                {userPayload.role === 'ADMIN' && (
+                  <li>
+                    <NavLink to="/CreateProduct" className='header-link'>Crear Producto</NavLink>
+                  </li>
+                )}
+                <li>
+                  <NavLink to='/' className='header-link' onClick={logout}>Logout</NavLink>
+                </li>
+              </>
             ) : (
               <>
                 <li>
@@ -44,6 +46,7 @@ const header = () => {
         </nav>
       </header>
     );
-  }
+  };
+  
   
   export default header;

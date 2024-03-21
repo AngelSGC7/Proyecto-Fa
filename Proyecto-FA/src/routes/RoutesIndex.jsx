@@ -1,18 +1,16 @@
 import { Routes, Route } from 'react-router-dom' //investiga acerca en router y switch//
-import Home from '../pages/Home'
-import Products from '../pages/Products'
-import Cart from '../pages/Cart'
-import AccountLogin from '../pages/AccountLogin'
-import AccountSignup from '../pages/AccountSignup'
+import { Home, Products, Cart, AccountLogin, AccountSignup, ProductDetail, Error404 } from '../pages'
 
 const RoutesIndex = () => {
   return (
     <Routes>
     <Route path='/' element={<Home />} />
     <Route path='/Products' element={<Products />} />
+    <Route path='/product/:pid' element={<ProductDetail />} />
     <Route path='/AccountLogin' element={<AccountLogin />} />
     <Route path='/AccountSignup' element={<AccountSignup />} />
     <Route path='/Cart' element={<Cart />} />
+    <Route path='*' element={<Error404 />} />
     </Routes>
   )
 }

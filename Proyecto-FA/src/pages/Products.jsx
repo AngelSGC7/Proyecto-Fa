@@ -1,7 +1,33 @@
 import React, { useEffect, useState } from 'react';
+import { getAllItemsService } from '../services/itemServices'
+import { Link } from 'react-router-dom'
 
 const Products = () => {
     const [productos, setProductos] = useState([]);
+    const [products, setProducts] = useState([])
+    const [cart, setCart] = useState([]);
+
+  
+    useEffect(() => {
+      const fetchProducts = async () => {
+        try {
+          const response = await getAllItemsService()
+  
+          if (response.status === 200) {
+            setProducts(response.data)
+          }
+        } catch (error) {
+          console.log(error)
+        }
+      }
+  
+      fetchProducts()
+    }, [])
+
+   const handleAddToCart = (product) => {
+  setCart([...cart, { id:product.id,name: product.product_name, price: product.price }]);
+  console.log("Producto agregado al carrito:", product.product_name);
+};
 
     useEffect(() => {
         const obtenerProductos = async () => {
@@ -22,21 +48,22 @@ const Products = () => {
     }, []);
 
     return (
-        <div className="container">
-            <h2 className='text-center'>Productos</h2>
-            <div className="row">
-                {productos.map((product, index) => (
-                    <div key={index} className="col-md-3 mb-4">
-                        <div className="card">
-                            <img src={product.image} className="card-img-top" alt="Producto" />
-                            <div className="card-body">
-                                <p className="card-text">{product.description}</p>
-                            </div>
-                        </div>
-                    </div>
-                ))}
-            </div>
-        </div>
-    );
-};
+        <>
+          <h1>Productos</h1>
+          <div className='d-flex flex-row flex-wrap justify-content-center'>
+            {products && products.map((product) => (
+              <div className='card' style={{ width: '18rem' }} key={product.id}>
+                <img className='card-img-top' style={{ maxHeight: '300px' }} src={product.image} alt={product.product_name} />
+                <div className='card-body'>
+                  <h5 className='card-title'>{product.product_name}</h5>
+                  <p className='card-text'>{product.description}</p>
+                  <Link to={`/product/${product.id}`} className='btn btn-primary'>Comprar</Link>
+                  <button onClick={() => handleAddToCart(product)} className='btn btn-secondary'>Agregar al Carrito</button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </>
+      )
+    }
 export default Products;
