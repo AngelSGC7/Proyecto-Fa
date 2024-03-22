@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom'
 import './header.css'
 import { useAuthContext } from '../../hooks/useAuthContext';
-import SearchComponent from '../SearchComponent/searchComponents';
+
 
 
 const header = () => {
@@ -10,7 +10,7 @@ const header = () => {
     return (    <header>
         <nav className='header'>
           <NavLink to="#" className='header-logo'>Habanna</NavLink>
-          <SearchComponent type="text" placeholder='Buscar' className='search-input'/>
+          <input type="text" placeholder='Buscar' className='search-input'/>
           <ul className='header-options'>
             <li>
               <NavLink to="/" className='header-link'>Inicio</NavLink>
@@ -19,7 +19,7 @@ const header = () => {
               <NavLink to="/Products" className='header-link'>Articulos</NavLink>
             </li>
             <li>
-              <NavLink to="/Cart" className='header-link'>Carrito</NavLink>
+              <NavLink to="/cart" className='header-link'>Carrito</NavLink>
             </li>
             {isAuth ? (
               <>

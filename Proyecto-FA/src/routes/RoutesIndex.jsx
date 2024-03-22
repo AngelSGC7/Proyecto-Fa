@@ -9,7 +9,7 @@ const RoutesIndex = () => {
     <Route path='/product/:pid' element={<ProductDetail />} />
     <Route path='/AccountLogin' element={<AccountLogin />} />
     <Route path='/AccountSignup' element={<AccountSignup />} />
-    <Route path='/Cart' element={<Cart />} />
+    <Route path='/cart' element={<Cart />} />
     <Route path='*' element={<Error404 />} />
     </Routes>
   )

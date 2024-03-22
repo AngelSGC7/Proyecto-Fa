@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { getAllItemsService } from '../services/itemServices'
 import { Link } from 'react-router-dom'
+import { useCartContext } from '../context/CartProvider';
 
 const Products = () => {
     const [productos, setProductos] = useState([]);
     const [products, setProducts] = useState([])
-    const [cart, setCart] = useState([]);
+    const { addToCart } = useCartContext();
 
   
     useEffect(() => {
@@ -24,11 +25,11 @@ const Products = () => {
       fetchProducts()
     }, [])
 
-   const handleAddToCart = (product) => {
-  setCart([...cart, { id:product.id,name: product.product_name, price: product.price }]);
-  console.log("Producto agregado al carrito:", product.product_name);
-};
-
+    const handleAddToCart = (product) => {
+        addToCart(product);
+        console.log("Producto agregado al carrito:", product.product_name);
+      };
+    
     useEffect(() => {
         const obtenerProductos = async () => {
             try {
@@ -49,21 +50,21 @@ const Products = () => {
 
     return (
         <>
-          <h1>Productos</h1>
-          <div className='d-flex flex-row flex-wrap justify-content-center'>
-            {products && products.map((product) => (
-              <div className='card' style={{ width: '18rem' }} key={product.id}>
-                <img className='card-img-top' style={{ maxHeight: '300px' }} src={product.image} alt={product.product_name} />
-                <div className='card-body'>
-                  <h5 className='card-title'>{product.product_name}</h5>
-                  <p className='card-text'>{product.description}</p>
-                  <Link to={`/product/${product.id}`} className='btn btn-primary'>Comprar</Link>
-                  <button onClick={() => handleAddToCart(product)} className='btn btn-secondary'>Agregar al Carrito</button>
-                </div>
+        <h1>Productos</h1>
+        <div className='d-flex flex-row flex-wrap justify-content-center'>
+          {products && products.map((product) => (
+            <div className='card' style={{ width: '18rem' }} key={product.id}>
+              <img className='card-img-top' style={{ maxHeight: '300px' }} src={product.image} alt={product.product_name} />
+              <div className='card-body'>
+                <h5 className='card-title'>{product.product_name}</h5>
+                <p className='card-text'>{product.description}</p>
+                <Link to={`/product/${product.id}`} className='btn btn-primary'>Comprar</Link>
+                <button onClick={() => handleAddToCart(product)} className='btn btn-secondary'>Agregar al Carrito</button>
               </div>
-            ))}
-          </div>
-        </>
-      )
-    }
+            </div>
+          ))}
+        </div>
+      </>
+    );
+  };
 export default Products;

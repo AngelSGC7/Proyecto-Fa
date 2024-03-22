@@ -27,7 +27,7 @@ const ProductDetail = () => {
       <p> {pid} </p>
       {product?.product_name && <p>Producto: {product?.product_name}</p>}
       {product?.description && <p>Descripción: {product?.description}</p>}
-      
+      {product?.description && <p>Descripción: {product?.imgage}</p>}
     </>
   )
 }

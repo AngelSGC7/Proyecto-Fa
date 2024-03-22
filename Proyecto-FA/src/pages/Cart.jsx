@@ -1,31 +1,32 @@
-import React from 'react'
+import React from 'react';
+import { useCartContext } from '../context/CartProvider';
 
 const Cart = () => {
+  const { cart, removeFromCart } = useCartContext();
+
   return (
-    <div>Cart</div>
-  )
-}
-
-export default Cart
-
-/*
-
-const Cart = ({ cart }) => {
-  return (
-    <div>
+    <>
       <h1>Carrito de Compras</h1>
-      {cart.length > 0 ? (
-        <ul>
-          {cart.map((item, id) => (
-            <li key={id}>
-              <strong>{item.name}</strong> - ${item.price}
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>El carrito está vacío.</p>
-      )}
-    </div>
+      <div>
+        {cart.length === 0 ? (
+          <p>El carrito está vacío</p>
+        ) : (
+          <ul>
+            {cart.map((item) => (
+              <li key={item.id}>
+                <div>
+                  <img src={item.image} alt={item.name} style={{ width: '100px', height: '100px' }} />
+                  <span>{item.name}</span>
+                  <span>{item.price}</span>
+                  <button onClick={() => removeFromCart(item.id)}>Eliminar</button>
+                </div>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </>
   );
-};*/
+};
 
+export default Cart;
